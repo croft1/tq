@@ -1,0 +1,73 @@
+scahael
+
+-------FILE-------------
+;Database
+Do this here
+
+123
+33
+79
+---------EOF----------------
+The code...
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+	const string aFile = "C:/YOUR_DIRECTORY/Example.txt";
+
+	ifstream f(aFile);
+	string line;
+
+
+	while (!f.eof()) {
+	getline(f,line);
+
+	if (line.length() == 0 || line[0] == ';')
+		cout << "IGNORE LINE\n";
+	else
+		cout << line << "\n";
+	}
+  system("pause");
+	return 0;
+}
+Edit & Run
+
+
+The screen printout looked like this:
+
+IGNORE LINE
+Do this here
+IGNORE LINE
+123
+33
+79
