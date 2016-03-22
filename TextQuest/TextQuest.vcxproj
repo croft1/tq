@@ -112,6 +112,7 @@
   <ItemGroup>
     <Text Include="CharacterData.txt" />
     <Text Include="PlayerData.txt" />
+    <Text Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tQHeader.h" />

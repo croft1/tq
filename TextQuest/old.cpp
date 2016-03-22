@@ -1,3 +1,15 @@
+//NOTE::
+
+//a lot of this is the same
+//got to a stage where i converted things to vectors for management since 
+//teaching myself c++ objects would be too much considering we're doing it for the next assignment
+
+
+
+
+
+
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -6,100 +18,93 @@
 
 using namespace std;
 
-void textQuest();
+//declaring functions
+void textQuestBegin();
 
+/*
 void main() {
 
-	textQuest();
-	system("pause");
-
+textQuestBegin();
+system("pause");
 }
+*/
 
-void textQuest() {
-
-	string playerName;
-	cout << "Welcome to TextQuest!\n\nPlease input your name" << endl;
-	cin >> playerName;
-
-	//write name to file
-	fstream playerFileStream;
-	playerFileStream.open("PlayerData.txt");
-	playerFileStream << playerName;
-	playerFileStream.close();
-
-	cout << "What class would you like to play?" << endl;
+void textQuestBegin() {
 
 
 	//get character class data
 	fstream characterFileStream;
 	characterFileStream.open("CharacterData.txt");
+	string line;
 
-	string item, line;
-	vector <vector<string>> charClass;
-	vector <string> charAttributes;
+	vector<string> charClasses;
 
-	//get line, seperate each item and add to vector
-	while (getline(characterFileStream, line) && characterFileStream.good()) {
-
-		stringstream lineStream(line);
-
-		while (getline(lineStream, item, ',')) {
-			charAttributes.push_back(item);
-			cout << "Found item :" << item << endl;
-		}
-		charClass.push_back(charAttributes);
-		charAttributes.clear();
-	}
-
-	//test
-	unsigned int x = 0,
-		y = 0;
-
-	while (x < charClass.size()) {
-		while (y < charClass.at(x).size()) {
-			cout << charClass.at(x).at(y) << endl;
-			y++;
-		}
-		x++;
-	}
-
-
-
-	unsigned int selectedClass = 999;	//assume we won't have >999 classes
 	do {
-		if ((selectedClass < 0 || selectedClass > static_cast<int>(charClass.size())) && selectedClass != 999) {
-			cout << "Please enter a valid number!" << endl;
-		}
-		cout << "Select your class number" << endl;
-		cin >> selectedClass;
-	} while (selectedClass >= static_cast<int>(charClass.size()) || selectedClass <= 0);
 
+		getline(characterFileStream, line);
+		charClasses.push_back(line);
+		cout << "c" << charClasses.at(1);
 
-	//harcoded index of each character classes attributes
-	cout << "You selected to play as a: " << charClass.at(selectedClass).at(0)
-	<< "\nHealth: " << charClass.at(selectedClass).at(1)
-	<< "\nStrength: " << charClass.at(selectedClass).at(2)
-	<< "\nMagic: " << charClass.at(selectedClass).at(3) << endl;
-	//starting level : 1 
+	} while (line != "");
 
+	cout << charClasses.size();
 
-
-	//saving character data
-	fstream pStream;
-		pStream.open("PlayerData.txt");
-
-	string classString;
-	for (int i = 0; i < (int)charClass.at(selectedClass).size(); i++) {
-		classString += "," + charClass.at(selectedClass).at(i);
-	}
-
-	pStream << playerName << classString;
-	pStream.close();
-}
-
-// possibly move character selection to an enum
-//string myCharacterData(int selectedClass) {
+	characterFileStream.close();
 	
 
+	//player name 
+	string playerName;
+	cout << "Welcome to TextQuest!\n\nPlease input your name" << endl;
+	cin >> playerName;
+
+	fstream playerFileStream;
+	playerFileStream.open("PlayerData.txt");
+	playerFileStream << playerName;
+
+	cout << "What class would you like to play?" << endl;
+	//sss
+	//player selects character
+	for (size_t i = 0; i < charClasses.size(); i++) {
+		string word;
+		stringstream lineStream(charClasses[i]);
+		getline(lineStream, word, ',');	//grabs class name to print
+		cout << charClasses[i];
+	}
+
+	int in;
+	do {
+
+		cin >> in;
+		cout << in;
+
+		if (in < 0 || in > 2) {
+			cout << " Please select a valid class";
+		}
+
+	} while (in < 0 || in > 2);
+
+	cout << "You selected to play as a " << charClasses.at(in) << endl;
 
 
+	//saving character data to file
+
+	string selectedLine;
+	string textToSave;
+	do {
+		getline(cin, selectedLine);
+		if (selectedLine[0] == '#' || selectedLine.length() == 0) {
+			cout << " " << selectedLine << "x" << selectedLine.empty() << selectedLine[0];
+		}
+		else {
+			textToSave += selectedLine;
+
+		}
+
+	} while (!selectedLine.empty());
+
+	//saves class data from array to file ontop of the rest.
+	textToSave += "\n" + playerName + "," + charClasses.at(in);
+	playerFileStream << textToSave;
+	playerFileStream.close();
+
+}

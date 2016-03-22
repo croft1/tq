@@ -1,1 +1,2 @@
-michael,60,80,50
+Michael,Deprived,1,1,1,1,1
+gsdf,Deprived,110,80,80,0,2

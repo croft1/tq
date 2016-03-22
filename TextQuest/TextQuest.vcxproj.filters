@@ -21,6 +21,9 @@
     <Text Include="PlayerData.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Readme.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tQHeader.h">
